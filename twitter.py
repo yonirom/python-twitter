@@ -34,6 +34,7 @@ import urllib2
 import urlparse
 import gzip
 import StringIO
+from google.appengine.api import memcache
 
 try:
   # Python >= 2.6
@@ -4108,18 +4109,19 @@ class _FileCache(object):
     return os.path.sep.join(hashed_key[0:_FileCache.DEPTH])
 
 class _GaeCache:  
+  PYTHON_TWITTER_NAMESPACE="python-twitter-cache"
 
   def __init__(self,root_directory=None):
     return None
 
   def Get(self,key):
-    return None
+    return memcache.get(key=key,namespace=self.PYTHON_TWITTER_NAMESPACE)
 
   def Set(self,key,data):
-    return None
+    memcache.set(key=key,value=data,namespace=self.PYTHON_TWITTER_NAMESPACE)
 
   def Remove(self,key):
-    return None
+    memcache.delete(key=key,namespace=self.PYTHON_TWITTER_NAMESPACE)
 
   def GetCachedTime(self,key):
     return None
