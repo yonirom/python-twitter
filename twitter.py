@@ -3662,7 +3662,7 @@ class Api(object):
         An instance that supports the same API as the twitter._FileCache
     '''
     if cache == DEFAULT_CACHE:
-      self._cache = _FileCache()
+      self._cache = _GaeCache()
     else:
       self._cache = cache
 
@@ -4106,3 +4106,20 @@ class _FileCache(object):
 
   def _GetPrefix(self,hashed_key):
     return os.path.sep.join(hashed_key[0:_FileCache.DEPTH])
+
+class _GaeCache:  
+
+  def __init__(self,root_directory=None):
+    return None
+
+  def Get(self,key):
+    return None
+
+  def Set(self,key,data):
+    return None
+
+  def Remove(self,key):
+    return None
+
+  def GetCachedTime(self,key):
+    return None
