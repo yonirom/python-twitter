@@ -3703,6 +3703,32 @@ class Api(object):
     data = self._ParseAndCheckTwitter(json)
     return Status.NewFromJsonDict(data)
 
+  def SetProfilePicture(self, imgdata=None):
+    '''Set A Profile Picture from a local file'''
+    url  = '%s/account/update_profile_image.json' % self.base_url
+    data = {}
+    if imgdata:
+        data['image'] = imgdata
+    else:
+      raise TwitterError("Specify local file")
+    data['include_entities'] = 'false'
+    json = self._FetchUrl(url, post_data=data)
+    data = self._ParseAndCheckTwitter(json)
+    return User.NewFromJsonDict(data)
+
+  def SetUserName(self, name=None):
+    '''Set A Profile Picture from a local file'''
+    url  = '%s/account/update_profile.json' % self.base_url
+    data = {}
+    if name:
+      data['name'] = name
+    else:
+      raise TwitterError("Specify name")
+    data['include_entities'] = 'false'
+    json = self._FetchUrl(url, post_data=data)
+    data = self._ParseAndCheckTwitter(json)
+    return User.NewFromJsonDict(data)
+
   def DestroyFavorite(self, status=None, id=None, include_entities=True):
     '''Un-Favorites the specified status object or id as the authenticating user.
     Returns the un-favorited status when successful.
