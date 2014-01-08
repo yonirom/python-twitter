@@ -2368,6 +2368,7 @@ class Api(object):
         The oAuth access token's secret, also retrieved
         from the get_access_token.py run.
     '''
+    self.__auth               = None
     self._consumer_key        = consumer_key
     self._consumer_secret     = consumer_secret
     self._access_token_key    = access_token_key
