@@ -4197,8 +4197,8 @@ class Api(object):
     else:
       raise TwitterError("Specify local file")
     data['include_entities'] = 'false'
-    json = self._FetchUrl(url, post_data=data)
-    data = self._ParseAndCheckTwitter(json)
+    json = self._RequestUrl(url, 'POST', data=data)
+    data = self._ParseAndCheckTwitter(json.content)
     return User.NewFromJsonDict(data)
 
   def SetUserName(self, name=None):
@@ -4210,8 +4210,8 @@ class Api(object):
     else:
       raise TwitterError("Specify name")
     data['include_entities'] = 'false'
-    json = self._FetchUrl(url, post_data=data)
-    data = self._ParseAndCheckTwitter(json)
+    json = self._RequestUrl(url, 'POST', data=data)
+    data = self._ParseAndCheckTwitter(json.content)
     return User.NewFromJsonDict(data)
 
   def DestroyFavorite(self, status=None, id=None, include_entities=True):
